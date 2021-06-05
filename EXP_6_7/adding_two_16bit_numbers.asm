@@ -1,0 +1,43 @@
+CODE SEGMENT
+    ASSUME CS:CODE , DS:CODE
+    
+    ORG 100h
+SUM:    
+    MOV AX,A
+    MOV BX,B
+    ADD AX,BX
+    MOV S,AX
+    
+    MOV AX,A+2
+    MOV BX,B+2
+    ADC AX,BX
+    MOV S+2,AX
+    
+PRODUCT:
+    MOV AX,S
+	MOV BX,C
+	MUL BX
+	MOV P,AX
+	MOV TEMP,DX
+	MOV AX,S+2
+	MUL BX
+	ADD AX,TEMP
+	MOV P+2,AX
+	ADC DX,0
+	MOV P+4,DX
+
+    
+    HLT
+    
+; DEFINING THE VARIABLES
+    A DW 0F042h,0h
+    B DW 0ECFFh,0h
+    C DW 321Bh
+    S DW ?,? ; THE SUM CAN BE 17 BIT, SO DOUBLE PRECISION WILL BE USED
+    P DW ?,? ; THE PRODUCT CAN BE GREATER THAN 16 BIT
+    TEMP DW ?   
+    
+    
+    
+CODE ENDS
+END
